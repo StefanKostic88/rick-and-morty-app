@@ -1,0 +1,30 @@
+body {
+  background-image: url("../img/rick-and-morty-cover.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.img-container {
+  overflow: hidden;
+  position: relative;
+}
+img {
+  transition: transform 300ms ease-in;
+  transform: scale(1);
+}
+
+.details {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+  cursor: pointer;
+}
+.card:hover .details {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+.card:hover img {
+  transition: transform 300ms ease-in;
+  transform: scale(1.1);
+}
