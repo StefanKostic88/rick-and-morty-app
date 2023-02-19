@@ -1,4 +1,5 @@
 const cardsContainer = document.getElementById("character-container");
+const paginationContainer = document.querySelector(".pagination");
 
 export const renderPage = (arr) => {
   cardsContainer.innerHTML = "";
@@ -31,3 +32,46 @@ const renderCard = ({ name, id, img, isLiked }) => {
             </div>
           </div>`;
 };
+
+const renderPagination = () => {
+  const html = `<li class="page-item bg-dark">
+  <a
+    class="page-link bg-dark text-light"
+    href="#"
+    aria-label="Previous"
+  >
+    <span aria-hidden="true">&laquo;</span>
+  </a>
+</li>
+${renderSideBtn(null, null, 1, 2)}
+<li class="page-item">
+  <a class="page-link active success" href="#">1</a>
+</li>
+${renderSideBtn(4, 5, null, 7)}
+<li class="page-item bg-dark">
+  <a class="page-link bg-dark text-light" href="#" aria-label="Next">
+    <span aria-hidden="true">&raquo;</span>
+  </a>
+</li>`;
+  paginationContainer.insertAdjacentHTML("beforeend", html);
+};
+
+const renderSideBtn = (next, nextTwo, nextThree, nextFive) => {
+  return `<li class="page-item ${
+    next ? "" : "d-none"
+  }"><a class="page-link" href="#">${next}</a></li>
+<li class="page-item ${
+    nextTwo ? "" : "d-none"
+  }"><a class="page-link" href="#">${nextTwo}</a></li>
+<li class="page-item ${
+    nextThree ? "" : "d-none"
+  }"><a class="page-link" href="#">${nextThree}</a></li>
+<li class="page-item ${
+    nextFive ? "" : "d-none"
+  }"><a class="page-link" href="#">${nextFive}</a></li>`;
+};
+
+console.log(renderSideBtn(4, 5, null, 7));
+console.log(renderSideBtn(null, null, 1, 2));
+
+renderPagination();

@@ -18,6 +18,8 @@ const initLikes = function () {
     state.likedCards = [...storage];
   }
 };
+
+// {name: 'Rick Sanchez', id: 1, img: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg', isLiked: true}
 initLikes();
 console.log(state.likedCards);
 
@@ -69,7 +71,6 @@ export const checkAndUpdateBookmarkedStatus = (arr, bookArr) => {
 };
 
 const updateBookmark = (arr, newCard, id) => {
-  console.log(arr, newCard, id);
   const data = [...arr];
   const findCard = data.find((el) => el.id === id);
   const findCardIndex = data.indexOf(findCard);

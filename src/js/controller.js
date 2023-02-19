@@ -31,20 +31,4 @@ const toggleLike = (e) => {
   renderPage(state.currentCharPage);
 };
 
-// initFirstPage();
-
-const controlPages = (curPage) => {
-  getCharData(curPage).then((data) => {
-    state.currentCharPage = [...data];
-    state.currentCharPage = [
-      ...checkAndUpdateBookmarkedStatus(
-        state.currentCharPage,
-        state.likedCards
-      ),
-    ];
-    renderPage(state.currentCharPage);
-    cardContainerEl.addEventListener("click", toggleLike);
-  });
-};
-
-controlPages(1);
+initFirstPage();
