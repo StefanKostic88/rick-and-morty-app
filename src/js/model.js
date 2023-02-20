@@ -13,6 +13,7 @@ export const state = {
   },
   currentCharPage: [],
   likedCards: [],
+  curId: 0,
 };
 
 const initLikes = function () {
@@ -43,9 +44,7 @@ export const getCharData = async (curPage = 1) => {
     if (!res.ok) throw new Error();
     console.log(data);
     return data.results.map((obj) => getCardData(obj));
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 //helpers
