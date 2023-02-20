@@ -1,7 +1,8 @@
 export const cardsContainer = document.getElementById("character-container");
 export const paginationContainer = document.querySelector(".pagination");
-
-const overlayEl = document.querySelector(".character-info__overlay");
+export const overayContainer = document.querySelector(
+  ".character-info__overlay"
+);
 
 export const renderPage = (arr) => {
   cardsContainer.innerHTML = "";
@@ -100,7 +101,7 @@ export const renderModal = ({ charData, img }) => {
   const renderImg = (img) => {
     return ` <div class="container-sm">
     <img
-      style="width: 22rem"
+      style="width: 28rem"
       class="img-fluid"
       src=${img}
       alt=""
@@ -126,9 +127,9 @@ export const renderModal = ({ charData, img }) => {
       .join("");
   };
 
-  overlayEl.innerHTML = "";
+  overayContainer.innerHTML = "";
 
-  const modalHtml = ` <div class="character-info__modal">
+  const modalHtml = ` <div class="character-info__modal ">
  ${renderImg(img)}
   <div class="accordion container-fluid mt-2" id="accordionExample">
     <div class="accordion-item">
@@ -157,5 +158,8 @@ export const renderModal = ({ charData, img }) => {
     </div>
   </div>
 </div>`;
-  overlayEl.insertAdjacentHTML("beforeend", modalHtml);
+  // document.querySelector("body").insertAdjacentHTML("beforeend", modalHtml);
+  overayContainer.insertAdjacentHTML("beforeend", modalHtml);
 };
+
+// const overayContainer = document.querySelector("character-info__overlay");

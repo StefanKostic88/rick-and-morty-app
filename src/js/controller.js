@@ -13,6 +13,7 @@ import {
   cardsContainer,
   paginationContainer,
   renderModal,
+  overayContainer,
 } from "./view.js";
 
 const initFirstPage = () => {
@@ -60,17 +61,34 @@ const toggleLike = (e) => {
   renderPage(state.currentCharPage);
 };
 
-const paginationData = generatePaginationData(state.pages);
-renderPagination(paginationData);
-
-getCharacterInfo(45).then((data) => {
-  renderModal(data);
-  const acc = document.querySelector(".accordion-button");
-  console.log(acc);
-  acc.addEventListener("click", function () {
-    const toggle = document.querySelector("#collapseOne");
-    toggle.classList.toggle("show");
-  });
-});
+// const paginationData = generatePaginationData(state.pages);
+// renderPagination(paginationData);
 
 initFirstPage();
+
+const controlModal = () => {};
+
+cardsContainer.addEventListener("click", function (e) {
+  if (!e.target.closest(".img-container")) return;
+  const cardId = +e.target.closest(".card").id;
+  getCharacterInfo(cardId).then((data) => {
+    toggleOverlay();
+    renderModal(data);
+  });
+});
+window.document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("character-info__overlay")) {
+    toggleOverlay();
+  }
+});
+
+const toggleOverlay = () => {
+  overayContainer.classList.toggle("d-flex");
+  overayContainer.classList.toggle("d-none");
+};
+// const acc = document.querySelector(".accordion-button");
+// console.log(acc);
+// acc.addEventListener("click", function () {
+//   const toggle = document.querySelector("#collapseOne");
+//   toggle.classList.toggle("show");
+// });
