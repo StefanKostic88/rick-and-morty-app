@@ -3,13 +3,41 @@ import {
   state,
   checkAndUpdateBookmarkedStatus,
   addAndRemoveBookMarkStatus,
+  generateCurentPaginationState,
+  generatePaginationData,
 } from "./model.js";
-import { renderPage } from "./view.js";
-
-const cardContainerEl = document.querySelector("#character-container");
+import {
+  renderPage,
+  renderPagination,
+  cardsContainer,
+  paginationContainer,
+} from "./view.js";
 
 const initFirstPage = () => {
-  getCharData().then((data) => {
+  const paginationData = generatePaginationData(state.pages);
+  renderPagination(paginationData);
+  getCharData()
+    .then((data) => {
+      state.currentCharPage = [...data];
+      state.currentCharPage = [
+        ...checkAndUpdateBookmarkedStatus(
+          state.currentCharPage,
+          state.likedCards
+        ),
+      ];
+      renderPage(state.currentCharPage);
+      cardsContainer.addEventListener("click", toggleLike);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+paginationContainer.addEventListener("click", function (e) {
+  const selectedPage = +e.target.dataset.page;
+  state.pages = { ...generateCurentPaginationState(selectedPage) };
+  const paginationData = generatePaginationData(state.pages);
+  renderPagination(paginationData);
+  getCharData(selectedPage).then((data) => {
     state.currentCharPage = [...data];
     state.currentCharPage = [
       ...checkAndUpdateBookmarkedStatus(
@@ -18,9 +46,8 @@ const initFirstPage = () => {
       ),
     ];
     renderPage(state.currentCharPage);
-    cardContainerEl.addEventListener("click", toggleLike);
   });
-};
+});
 
 const toggleLike = (e) => {
   if (!e.target.classList.contains("btn")) return;
@@ -31,4 +58,13 @@ const toggleLike = (e) => {
   renderPage(state.currentCharPage);
 };
 
-initFirstPage();
+// initFirstPage();
+const paginationData = generatePaginationData(state.pages);
+renderPagination(paginationData);
+
+const acc = document.querySelector(".accordion-button");
+console.log(acc);
+acc.addEventListener("click", function () {
+  const toggle = document.querySelector("#collapseOne");
+  toggle.classList.toggle("show");
+});

@@ -1,5 +1,5 @@
-const cardsContainer = document.getElementById("character-container");
-const paginationContainer = document.querySelector(".pagination");
+export const cardsContainer = document.getElementById("character-container");
+export const paginationContainer = document.querySelector(".pagination");
 
 export const renderPage = (arr) => {
   cardsContainer.innerHTML = "";
@@ -33,45 +33,61 @@ const renderCard = ({ name, id, img, isLiked }) => {
           </div>`;
 };
 
-const renderPagination = () => {
+export const renderPagination = ({
+  prevFourPages,
+  prevThreePages,
+  prevTwoPages,
+  prevPage,
+  curPage,
+  nextPage,
+  nextTwoPages,
+  nextThreePages,
+  nextFourPages,
+}) => {
+  paginationContainer.innerHTML = "";
   const html = `<li class="page-item bg-dark">
-  <a
-    class="page-link bg-dark text-light"
-    href="#"
-    aria-label="Previous"
-  >
-    <span aria-hidden="true">&laquo;</span>
-  </a>
-</li>
-${renderSideBtn(null, null, 1, 2)}
-<li class="page-item">
-  <a class="page-link active success" href="#">1</a>
-</li>
-${renderSideBtn(4, 5, null, 7)}
-<li class="page-item bg-dark">
-  <a class="page-link bg-dark text-light" href="#" aria-label="Next">
-    <span aria-hidden="true">&raquo;</span>
-  </a>
-</li>`;
+                  <a
+                    class="page-link bg-dark text-light"
+                    href="#"
+                    aria-label="Previous"
+                  >
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                  </li>
+                  ${renderSideBtn(
+                    prevFourPages,
+                    prevThreePages,
+                    prevTwoPages,
+                    prevPage
+                  )}
+                  <li class="page-item">
+                    <a class="page-link active success" href="#">${curPage}</a>
+                  </li>
+                  ${renderSideBtn(
+                    nextPage,
+                    nextTwoPages,
+                    nextThreePages,
+                    nextFourPages
+                  )}
+                  <li class="page-item bg-dark">
+                    <a class="page-link bg-dark text-light" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>`;
   paginationContainer.insertAdjacentHTML("beforeend", html);
 };
 
-const renderSideBtn = (next, nextTwo, nextThree, nextFive) => {
+const renderSideBtn = (itr, itrTwo, itrThree, itrFour) => {
   return `<li class="page-item ${
-    next ? "" : "d-none"
-  }"><a class="page-link" href="#">${next}</a></li>
+    itr ? "" : "d-none"
+  }"><a class="page-link" href="#" data-page="${itr}">${itr}</a></li>
 <li class="page-item ${
-    nextTwo ? "" : "d-none"
-  }"><a class="page-link" href="#">${nextTwo}</a></li>
+    itrTwo ? "" : "d-none"
+  }"><a class="page-link" href="#" data-page="${itrTwo}">${itrTwo}</a></li>
 <li class="page-item ${
-    nextThree ? "" : "d-none"
-  }"><a class="page-link" href="#">${nextThree}</a></li>
+    itrThree ? "" : "d-none"
+  }"><a class="page-link" href="#" data-page="${itrThree}">${itrThree}</a></li>
 <li class="page-item ${
-    nextFive ? "" : "d-none"
-  }"><a class="page-link" href="#">${nextFive}</a></li>`;
+    itrFour ? "" : "d-none"
+  }"><a class="page-link" href="#"  data-page="${itrFour}">${itrFour}</a></li>`;
 };
-
-console.log(renderSideBtn(4, 5, null, 7));
-console.log(renderSideBtn(null, null, 1, 2));
-
-renderPagination();
