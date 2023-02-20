@@ -1,16 +1,6 @@
 const API__URL = "https://rickandmortyapi.com/api/character/";
 export const state = {
-  pages: {
-    prevFourPages: -3,
-    prevThreePages: -2,
-    prevTwoPages: -1,
-    prevPage: 0,
-    curPage: 1,
-    nextPage: 2,
-    nextTwoPages: 3,
-    nextThreePages: 4,
-    nextFourPages: 5,
-  },
+  pages: {},
   currentCharPage: [],
   likedCards: [],
   curId: 0,
@@ -42,7 +32,6 @@ export const getCharData = async (curPage = 1) => {
     const res = await fetch(`${API__URL}?page=${curPage}`);
     const data = await res.json();
     if (!res.ok) throw new Error();
-    console.log(data);
     return data.results.map((obj) => getCardData(obj));
   } catch (err) {}
 };
@@ -81,7 +70,6 @@ const updateBookmark = (arr, newCard, id) => {
 };
 
 export const addAndRemoveBookMarkStatus = (arr, id) => {
-  console.log(arr, id);
   const data = [...arr];
   const findCard = data.find((el) => el.id === id);
   const newCard = {
@@ -96,7 +84,7 @@ export const addAndRemoveBookMarkStatus = (arr, id) => {
 
   // // //ADD TO LOCAL STORAGE
   localStorage.setItem("liked", JSON.stringify(state.likedCards));
-  console.log(data);
+
   return data;
 };
 

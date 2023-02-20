@@ -6,8 +6,6 @@ export const getAccordianBtn = () => {
 };
 
 export const renderModal = ({ charData, img }, animation = true) => {
-  console.log(charData, img);
-
   const renderImg = (img) => {
     return ` <div class="container-sm ">
     <img

@@ -24,8 +24,10 @@ import {
 //Init First Page
 
 const initFirstPage = () => {
+  state.pages = { ...generateCurentPaginationState(1) };
   const paginationData = generatePaginationData(state.pages);
   renderPagination(paginationData);
+
   getCharData()
     .then((data) => {
       state.currentCharPage = [...data];
@@ -46,10 +48,13 @@ const initFirstPage = () => {
 //Pagination
 
 const controlPagination = (e) => {
-  const selectedPage = +e.target.dataset.page;
+  if (!+e.target.closest("a")?.dataset.page) return;
+
+  const selectedPage = +e.target.closest("a").dataset.page;
   state.pages = { ...generateCurentPaginationState(selectedPage) };
   const paginationData = generatePaginationData(state.pages);
   renderPagination(paginationData);
+
   getCharData(selectedPage)
     .then((data) => {
       state.currentCharPage = [...data];
@@ -59,6 +64,7 @@ const controlPagination = (e) => {
           state.likedCards
         ),
       ];
+
       renderPage(state.currentCharPage);
     })
     .catch((err) => {
