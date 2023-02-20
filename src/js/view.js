@@ -1,6 +1,8 @@
 export const cardsContainer = document.getElementById("character-container");
 export const paginationContainer = document.querySelector(".pagination");
 
+const overlayEl = document.querySelector(".character-info__overlay");
+
 export const renderPage = (arr) => {
   cardsContainer.innerHTML = "";
   const html = arr.map((card) => renderCard(card)).join("");
@@ -90,4 +92,70 @@ const renderSideBtn = (itr, itrTwo, itrThree, itrFour) => {
 <li class="page-item ${
     itrFour ? "" : "d-none"
   }"><a class="page-link" href="#"  data-page="${itrFour}">${itrFour}</a></li>`;
+};
+
+export const renderModal = ({ charData, img }) => {
+  console.log(charData, img);
+
+  const renderImg = (img) => {
+    return ` <div class="container-sm">
+    <img
+      style="width: 22rem"
+      class="img-fluid"
+      src=${img}
+      alt=""
+    />
+  </div>`;
+  };
+
+  const renderAccordianList = (characterData) => {
+    return characterData
+
+      .map((char) => {
+        console.log();
+        return ` <h5
+            class="d-flex flex-column flex-sm-row justify-content-between"
+          >
+            <span class="mb-1 text-success">${`${Object.keys(char)[0]
+              .slice(0, 1)
+              .toUpperCase()}${Object.keys(char)[0].slice(
+              1
+            )}`}:</span><span> ${Object.values(char)}</span>
+          </h5>`;
+      })
+      .join("");
+  };
+
+  overlayEl.innerHTML = "";
+
+  const modalHtml = ` <div class="character-info__modal">
+ ${renderImg(img)}
+  <div class="accordion container-fluid mt-2" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button
+          class="accordion-button bg-success text-light w-100"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseOne"
+          aria-expanded="true"
+          aria-controls="collapseOne"
+        >
+          Character Info
+        </button>
+      </h2>
+      <div
+        id="collapseOne"
+        class="accordion-collapse collapse show"
+        aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body">
+         ${renderAccordianList(charData)}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`;
+  overlayEl.insertAdjacentHTML("beforeend", modalHtml);
 };

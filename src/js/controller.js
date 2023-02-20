@@ -5,12 +5,14 @@ import {
   addAndRemoveBookMarkStatus,
   generateCurentPaginationState,
   generatePaginationData,
+  getCharacterInfo,
 } from "./model.js";
 import {
   renderPage,
   renderPagination,
   cardsContainer,
   paginationContainer,
+  renderModal,
 } from "./view.js";
 
 const initFirstPage = () => {
@@ -58,13 +60,17 @@ const toggleLike = (e) => {
   renderPage(state.currentCharPage);
 };
 
-// initFirstPage();
 const paginationData = generatePaginationData(state.pages);
 renderPagination(paginationData);
 
-const acc = document.querySelector(".accordion-button");
-console.log(acc);
-acc.addEventListener("click", function () {
-  const toggle = document.querySelector("#collapseOne");
-  toggle.classList.toggle("show");
+getCharacterInfo(45).then((data) => {
+  renderModal(data);
+  const acc = document.querySelector(".accordion-button");
+  console.log(acc);
+  acc.addEventListener("click", function () {
+    const toggle = document.querySelector("#collapseOne");
+    toggle.classList.toggle("show");
+  });
 });
+
+initFirstPage();

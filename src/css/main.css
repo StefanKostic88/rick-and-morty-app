@@ -41,11 +41,5 @@ img {
 }
 
 .character-info__modal {
-  /* background-color: red; */
-  /* width: 20%; */
-  /* height: 20%; */
-  /* box-shadow: 0 0 5px red; */
-  /* overflow: hidden; */
   min-height: 85%;
-  /* min-width: 700px; */
 }
