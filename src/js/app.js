@@ -7,7 +7,7 @@ import {
   generatePaginationData,
   getCharacterInfo,
 } from "./model.js";
-import { renderPage, cardsContainer } from "./cardsView/cardsView.js";
+import { renderPage, cardsContainer, logoEl } from "./cardsView/cardsView.js";
 
 import {
   renderPagination,
@@ -22,6 +22,14 @@ import {
 } from "./modalView/modalView.js";
 
 //Init First Page
+
+const init = () => {
+  initFirstPage();
+  logoEl.addEventListener("click", controlLogoClick);
+  paginationContainer.addEventListener("click", controlPagination);
+  cardsContainer.addEventListener("click", controlOpenModal);
+  overayContainer.addEventListener("click", controlCloseModal);
+};
 
 const initFirstPage = () => {
   state.pages = { ...generateCurentPaginationState(1) };
@@ -45,6 +53,9 @@ const initFirstPage = () => {
     });
 };
 
+const controlLogoClick = () => {
+  initFirstPage();
+};
 //Pagination
 
 const controlPagination = (e) => {
@@ -119,7 +130,4 @@ const controlError = () => {
   });
 };
 
-initFirstPage();
-paginationContainer.addEventListener("click", controlPagination);
-cardsContainer.addEventListener("click", controlOpenModal);
-overayContainer.addEventListener("click", controlCloseModal);
+init();

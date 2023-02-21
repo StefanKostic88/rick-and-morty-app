@@ -1,5 +1,5 @@
 export const cardsContainer = document.getElementById("character-container");
-
+export const logoEl = document.querySelector(".logo");
 export const renderPage = (arr) => {
   cardsContainer.innerHTML = "";
   const html = arr.map((card) => renderCard(card)).join("");

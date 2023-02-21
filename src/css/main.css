@@ -5,6 +5,9 @@ body {
   background-position: center;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.logo {
+  cursor: pointer;
+}
 .img-container {
   overflow: hidden;
   position: relative;
